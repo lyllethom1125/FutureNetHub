@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Literacy Hub - Future Skills</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Font Configuration for Inter */
+        /* Note: Tailwind defaults to Inter if not overridden */
+
+        @keyframes subtle-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* New keyframes for the subtle pulsing grid effect */
+        @keyframes pulse-opacity {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.15; }
+        }
+
+        /* Futuristic Background and Main Layout */
+        .futuristic-background {
+            /* Full viewport size */
+            min-height: 100vh;
+            width: 100vw;
+            /* Gradient for the futuristic, deep space look */
+            background: linear-gradient(-45deg, #1A202C, #001f3f, #1e3a8a, #2C5282);
+            background-size: 400% 400%;
+            /* Apply the animation */
+            animation: subtle-move 20s ease infinite; 
+            font-family: 'Inter', sans-serif;
+            color: #E2E8F0; /* Light gray text for contrast */
+            display: flex;
+            flex-direction: column;
+            
+            /* Required for the absolute positioned grid overlay */
+            position: relative; 
+            overflow: hidden;
+        }
+        
+        /* Digital Grid Overlay (the added detail) */
+        .futuristic-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Create a fine grid using repeating linear gradients */
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(59, 130, 246, 0.1) 0px, transparent 1px, transparent 25px),
+                repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0px, transparent 1px, transparent 25px);
+            background-size: 25px 25px;
+            opacity: 0.05; /* Starting low opacity for subtlety */
+            pointer-events: none; /* Allows clicks to go through to the main content */
+            animation: pulse-opacity 10s infinite ease-in-out; /* Subtle pulse animation */
+        }
+
+
+        /* Custom glow for main elements */
+        .glow-button {
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.7), 0 0 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.9), 0 0 30px rgba(96, 165, 250, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Input field styling */
+        .futuristic-input {
+            background-color: rgba(30, 41, 59, 0.7); /* dark blue-gray */
+            border: 1px solid rgba(59, 130, 246, 0.5); /* blue border */
+            color: #E2E8F0;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .futuristic-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+        }
+        
+        /* Content container styling */
+        .content-section {
+            padding-top: 5rem; /* Space below header */
+            padding-bottom: 2rem; /* Ensure space above footer */
+            flex-grow: 1;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Social Icon Styling */
+        .social-icon {
+            display: inline-block;
+            margin: 0 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            fill: #E2E8F0; /* White icon color */
+            transition: fill 0.3s;
+        }
+        .social-icon:hover {
+            fill: #3B82F6; /* Blue hover glow */
+            filter: drop-shadow(0 0 5px #3B82F6);
+        }
+        
+        /* Utility to hide/show sections */
+        .hidden-section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="futuristic-background">
+        <!-- 1. Header and Navigation -->
+        <header class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-70 backdrop-blur-sm z-50 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
+                
+                <!-- Site Title (Replaced Logo) -->
+                <div class="cursor-pointer" onclick="showView('home-view')">
+                    <span class="text-2xl font-extrabold text-blue-400 hover:text-blue-300 transition">FUTURENET</span>
+                </div>
+                
+                <!-- Navigation and Buttons -->
+                <nav class="flex items-center space-x-4">
+                    <button class="text-sm font-medium text-gray-300 hover:text-blue-400 transition" onclick="showView('home-view')">
+                        <span class="inline-block px-1">Home</span>
+                    </button>
+                    <button class="text-sm font-medium text-gray-300 hover:text-blue-400 transition" onclick="showView('explore-view')">
+                        <span class="inline-block px-1">Learn More</span>
+                    </button>
+                    <button class="text-sm font-medium text-blue-400 font-bold transition" onclick="showView('contact-view')">
+                        <span class="inline-block px-1">Contact Us</span>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- 2. Main Content Wrapper -->
+        <div class="content-section">
+            
+            <!-- HOME VIEW (Default) -->
+            <div id="home-view" class="text-center max-w-4xl p-6 rounded-xl bg-gray-800 bg-opacity-80 backdrop-blur-sm border border-blue-600/50 shadow-2xl">
+                
+                <!-- Title -->
+                <h1 class="text-5xl sm:text-7xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 tracking-tight">
+                    DIGITAL LITERACY
+                </h1>
+                
+                <!-- Tagline -->
+                <p class="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Your compass in the information age: Master the screen, secure the future.
+                </p>
+
+                <!-- Explore Now Button - Now switches to the explore view -->
+                <button class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full text-lg glow-button mb-12" onclick="showView('explore-view')">
+                    EXPLORE NOW
+                </button>
+
+                <!-- Social Media Links (Icons created using simple SVG placeholders) -->
+                <div class="mt-8">
+                    <span class="text-gray-400 text-sm block mb-3">Connect with us on the grid:</span>
+                    <a href="#" aria-label="Facebook" class="social-icon">
+                        <!-- Facebook Icon Placeholder -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.54 0-2.5 2.7-2.5h1.3V.5s-1.4-.2-2.7-.2c-3.23 0-5.3 1.9-5.3 5.4v3.8H8v4h3v10h4v-10z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Twitter" class="social-icon">
+                        <!-- X/Twitter Icon Placeholder -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M23.953 4.57c-.886.392-1.83.656-2.82.775 1.017-.609 1.795-1.574 2.16-2.723-.951.566-2.005.977-3.12 1.195-.898-.958-2.176-1.554-3.593-1.554-2.71 0-4.91 2.2-4.91 4.91 0 .385.04.757.11 1.116-4.085-.2-7.7-2.16-10.124-5.132-.424.725-.667 1.564-.667 2.472 0 1.706.87 3.21 2.188 4.095-.806-.025-1.564-.247-2.22-.614v.06c0 2.373 1.688 4.35 3.92 4.8-.41.114-.847.174-1.295.174-.316 0-.62-.03-1.125-.106.63 1.95 2.44 3.376 4.594 3.416-1.674 1.314-3.79 2.1-6.096 2.1-.397 0-.788-.023-1.17-.065C.61 21.056 2.87 21.8 5.23 21.8c6.287 0 9.71-5.216 9.71-9.71 0-.15-.003-.298-.01-.447C22.39 6.4 23.254 5.56 23.953 4.57z"/></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn" class="social-icon">
+                        <!-- LinkedIn Icon Placeholder -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zM8 19H4V8h4v11zM6 6.5C4.88 6.5 4 5.62 4 4.5S4.88 2.5 6 2.5 8 3.38 8 4.5 7.12 6.5 6 6.5zm16 12.5h-4v-5.6c0-1.34-.025-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97V19H9V8h3.83v1.65h.05c.52-1 1.8-1.9 3.73-1.9 4 0 4.7 2.63 4.7 6.05V19z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- EXPLORE VIEW (Hidden by default) -->
+            <div id="explore-view" class="hidden-section max-w-4xl w-full p-8 rounded-xl bg-gray-800 bg-opacity-80 backdrop-blur-sm border border-blue-600/50 shadow-2xl space-y-8 text-left">
+                
+                <h2 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 border-b border-blue-600/50 pb-2 mb-6 text-center">
+                    Digital Literacy: Core Concepts and Impact
+                </h2>
+
+                <!-- Main Understanding and Definitions (Jimenez) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Main Understanding and Definitions <span class="text-base text-gray-400 font-normal">(Jimenez)</span>
+                    </h3>
+                    
+                    <p class="text-gray-300 leading-relaxed mb-3">
+                        **Digital Literacy** means knowing how to use computers, the internet, and online tools in a good and safe way. It is not only using a phone or laptop, but also knowing how to find true information and share it in the right way.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-3">
+                        The **Information Age** is the time now where technology and the internet are very important. Digital literacy is needed today because many things—school, work, and daily life—use technology. If people have digital skills, they can learn faster, get jobs, and be safe online.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-3">
+                        Digital literacy means using digital technologies with confidence and skill to find, share, and create information, and to connect with others online.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-3">
+                        The Information Age began in the mid-1900s, marked by a shift from traditional industries to information technology, starting with the 1947 invention of the **transistor** that transformed how information is shared and processed.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Digital literacy is using technology to find, understand, create, and share information. Before it meant knowing basic tools, but now it is a key skill for study and work.
+                    </p>
+                    
+                    <div class="mt-6">
+                        <h4 class="text-lg font-semibold text-blue-400 mb-2">References:</h4>
+                        <ul class="text-sm text-gray-400 list-disc list-inside ml-4 space-y-0.5">
+                            <li><a href="https://uis.unesco.org/en/glossary-term/digital-literacy" target="_blank" class="hover:text-blue-400 transition">unesco.org</a></li>
+                            <li><a href="https://literacy.ala.org/digital-literacy/" target="_blank" class="hover:text-blue-400 transition">literacy.ala.org</a></li>
+                            <li><a href="https://www.cedefop.europa.eu/en/tools/vet-glossary/glossary/digitale-alphabetisierung" target="_blank" class="hover:text-blue-400 transition">cedefop.europa.eu</a></li>
+                            <li><a href="https://en.m.wikipedia.org/wiki/Information_Age" target="_blank" class="hover:text-blue-400 transition">en.m.wikipedia.org</a></li>
+                            <li><a href="https://library.indianastate.edu/Digital_Literacy" target="_blank" class="hover:text-blue-400 transition">library.indianastate.edu</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- History and Evolution of technology (Delos Santos) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        History and Evolution of Technology <span class="text-base text-gray-400 font-normal">(Delos Santos)</span>
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        The evolution of technology is the process where knowledge, techniques, and physical artifacts change and develop over time, fundamentally reshaping human society and industries. This continuous change enables new opportunities, transforms economies, and profoundly impacts our daily lives.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Key Concepts of Technological Evolution</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Accumulation and Change:** Technological knowledge builds upon itself, with each generation becoming more advanced, efficient, and capable than the last.</li>
+                        <li>**Societal Transformation:** Technological changes are often radical, leading to major shifts in how societies function, communicate, and work.</li>
+                        <li>**Stages of Evolution:** Early technology moved from basic tools (like arrows) to more complex machinery, and eventually to **automation**.</li>
+                        <li>**Drivers of Change:** Technology evolves due to a combination of human rational faculty, the desire to solve problems, and a competitive environment.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">Historical Examples and Modern Impact</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Early Innovations:** The development of the wheel, irrigation systems, and complex writing systems demonstrated early technological sophistication.</li>
+                        <li>**Industrial Revolution:** This era saw the invention of new machinery, transforming economies from agricultural to industrialized.</li>
+                        <li>**The Digital Age:** Advancements like the **computer, the internet, and mobile devices** have created a knowledge-based economy and a highly interconnected global society.</li>
+                        <li>**Impact:** Technologies like smartphones have made instant communication and access to information ubiquitous.</li>
+                    </ul>
+                </div>
+
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- Major Milestones of Technology -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-4">
+                        Major Milestones of Technology
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Major technological milestones represent fundamental shifts in human capabilities, impacting how we communicate, work, travel, and understand the world.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Early Foundations & Agriculture (c. 3500 BC – 1000 AD)</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Wheel (c. 3500 BC):** Revolutionized transportation.</li>
+                        <li>**Plow (c. 3000 BC):** Increased agricultural productivity.</li>
+                        <li>**Paper (105 AD):** Essential for spreading knowledge and modern education.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">The Renaissance & Early Modern Era (c. 1400s – 1700s)</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Printing Press (c. 1440):** Enabled the mass production of books, dramatically increasing access to information.</li>
+                        <li>**Steam Engine (1712):** A key invention of the Industrial Revolution, powering machinery.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">The Digital Age & Internet (c. 1940s – 1990s)</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Transistor (1947):** Paved the way for smaller, more powerful electronic devices.</li>
+                        <li>**World Wide Web (1989):** Transformed information sharing, connecting the world.</li>
+                        <li>**Personal Computers (c. 1980s):** Brought computing to the masses.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">The Mobile & AI Era (c. 2000s – Present)</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Mobile Computing (c. 2007 onwards):** Shifted computing to personal, portable devices.</li>
+                        <li>**Generative AI (c. 2022 onwards):** Revolutionizing creative and analytical processes.</li>
+                    </ul>
+                </div>
+                
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- Ethical and Legal Dimensions (Lebin) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Ethical and Legal Dimensions <span class="text-base text-gray-400 font-normal">(Lebin)</span>
+                    </h3>
+                    
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        As a responsible digitally literate person, you must apply your knowledge, skills, and values in using technology **wisely, safely, and ethically**. One of the main factors and core skills of digital literacy is being able to recognize **misinformation and fake news**.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">The CRAAP Test for Information Credibility:</h4>
+                    <p class="text-gray-300 leading-relaxed mb-3">
+                        A common way to check for misinformation is to use the **CRAAP test**, developed by librarian Sarah Blakeslee.
+                    </p>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**C (Currency):** When was the information published or last updated? Is it up to date?</li>
+                        <li>**R (Relevance):** Is the information related to the topic you are seeking, and is it appropriate for the target audience?</li>
+                        <li>**A (Authority):** Who is the author or publisher, and how credible is their information?</li>
+                        <li>**A (Accuracy):** Is the information supported by evidence, and are the spelling and grammar correct?</li>
+                        <li>**P (Purpose):** What is the purpose of the information (to inform, teach, sell, entertain, or persuade)? Look for potential biases.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">Digital Rights and Intellectual Property</h4>
+                    <p class="text-gray-300 leading-relaxed mb-2">
+                        Digital literacy isn’t complete without understanding **digital rights**, which include the right to access information, freedom of expression, privacy, security, and intellectual property protection.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        **Intellectual property (IP)** refers to media creations like texts, music, software, and websites. IP protections like **copyright, patents, and trademarks** help promote the responsible use of digital literacy and protect creators' original work.
+                    </p>
+                </div>
+                
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- Barriers to Acquiring Digital Literacy (Bacani) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Barriers to Acquiring Digital Literacy <span class="text-base text-gray-400 font-normal">(Bacani)</span>
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Accessibility in digital literacy involves removing barriers to acquiring skills and ensuring adaptive tools are available so everyone can fully participate in the digital age.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Key Barriers:</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Access to Technology and Infrastructure:** Limited availability of affordable digital devices and reliable internet connectivity, especially in low-income or rural areas.</li>
+                        <li>**Socio-Economic Gaps:** Economic disparities create unequal opportunities for digital learning, and older generations may feel overwhelmed by technology.</li>
+                        <li>**Educational and Training Limitations:** Teachers often lack sufficient training in ICT (Information and Communications Technology) and digital literacy pedagogy.</li>
+                        <li>**Accessibility for Disabilities:** People with visual or learning difficulties face challenges with inaccessible digital content or poorly designed materials.</li>
+                        <li>**Digital Misinformation:** The inability to discern credible sources online is a barrier to effective digital literacy.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">Tools to Build Digital Literacy:</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Inclusive and Adaptive Technologies:** Tools like text-to-speech software and screen readers help remove barriers for students with disabilities.</li>
+                        <li>**Interactive and Engaging Digital Tools:** Flashcards, educational games, and multimedia presentations foster active learning.</li>
+                        <li>**Community and Institutional Support:** Technology hubs and affordable device programs help bridge the technology gap.</li>
+                    </ul>
+                </div>
+                
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+                
+                <!-- Educational Aspects (Lebin) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Educational Aspects <span class="text-base text-gray-400 font-normal">(Lebin)</span>
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Because the Information Age is dependent on technology, education must evolve. Digital literacy education fosters **critical thinking, responsible digital citizenship, technology skills, and career preparedness** among students. It equips students with essential skills like typing, file management, digital collaboration, and basic coding, which are crucial for success.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Building digital literacy must start at elementary school. Since technology is everywhere now, people must adapt by expanding their digital literacy. Schools often offer ICT-related subjects or courses, taught descriptively and practically, often with hands-on exercises or collaborative work.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Technology allows educators to tailor instruction to individual needs through adaptive learning programs or online resources that cater to various learning styles—visual, auditory, or kinesthetic.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        The term **"blended learning,"** also referred to as "hybrid learning," combines in-person (F2F) and online learning activities. Blended learning provides accessibility and flexibility, allows students to learn at their own pace, and supports struggling students by letting them revisit instructions or tutorials.
+                    </p>
+                </div>
+
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- Effect on; Workforce and Economy (Ramos) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Effect on Workforce and Economy <span class="text-base text-gray-400 font-normal">(Ramos)</span>
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Digital literacy is a fundamental workplace skill, with **over 92% of jobs** now requiring it. It goes beyond basic computer use to include software proficiency and data analysis. Workers with these skills enjoy **higher pay and job security**, while employers gain efficiency and competitiveness.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Digital Literacy is Essential</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Employability:** Gives workers access to better job opportunities and career advancement.</li>
+                        <li>**Productivity:** Boosts efficiency, collaboration, and innovation in the workplace.</li>
+                        <li>**Economic Growth:** A digitally skilled workforce strengthens the economy, reduces skill gaps, and enhances global competitiveness.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">Impact on Entrepreneurship and the Knowledge Economy</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Entrepreneurship:** Enables the use of online platforms, digital payments, and marketing tools to innovate and expand markets.</li>
+                        <li>**Knowledge Economy:** Digital literacy improves employability by enabling skills in communication, data analysis, and problem-solving, fueling innovation and entrepreneurship.</li>
+                    </ul>
+                </div>
+                
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- Social and Cultural Impact of Digital Literacy (Anonuevo) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Social and Cultural Impact of Digital Literacy <span class="text-base text-gray-400 font-normal">(Anonuevo)</span>
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Digital literacy—the ability to use and evaluate digital information—has fundamentally reshaped education and cultural exchange.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Education and Cultural Impact</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>**Education Impact:** Digital skills are now part of curricula, helping students evaluate sources and navigate digital texts. Remote learning potential also highlighted inequities in access.</li>
+                        <li>**Cultural Impact:** Social media exposes people to **global cultures, languages, and traditions**, fostering empathy. However, algorithms can reinforce echo chambers and stereotypes.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mt-4 mb-2">Policy Implications</h4>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+                        <li>Combine digital skills with critical and intercultural education.</li>
+                        <li>Invest in teacher training and equal access to technology.</li>
+                        <li>Encourage platform transparency and diverse content.</li>
+                    </ul>
+                </div>
+
+                <div class="h-px bg-gray-700 w-full opacity-50 my-8"></div>
+
+                <!-- Future Challenges and Opportunities (Aligacion) -->
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-300 mb-3">
+                        Future Challenges and Opportunities <span class="text-base text-gray-400 font-normal">(Aligacion)</span>
+                    </h3>
+                    
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Lifelong Learning and Adapting to New Tools</h4>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        **Lifelong learning** means learning is not limited to "school" and can happen anytime in our lives. To adapt to new tools, you need to cultivate a **growth mindset** by embracing challenges and committing to continuous learning through online courses, workshops, and self-study.
+                    </p>
+
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">AI and its Possible Impact in the Near Future</h4>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        **AI** is expected to improve industries like healthcare and manufacturing, leading to higher-quality experiences. However, it faces challenges like increased regulation, data privacy concerns, and worries over job losses.
+                    </p>
+                    
+                    <h4 class="text-xl font-semibold text-blue-400 mb-2">Digital Sustainability</h4>
+                    <p class="text-gray-300 leading-relaxed">
+                        **Digital sustainability** is the responsible adoption and use of digital technology to positively impact society and the environment in the long term. This includes considering energy efficiency, responsible disposal of electronic devices, and the ethical use of data and technology.
+                    </p>
+                </div>
+
+                <div class="text-center mt-10">
+                    <button class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-full text-md transition" onclick="showView('home-view')">
+                        Go Back Home
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTACT VIEW (Hidden by default) -->
+            <div id="contact-view" class="hidden-section max-w-xl w-full p-8 rounded-xl bg-gray-800 bg-opacity-80 backdrop-blur-sm border border-blue-600/50 shadow-2xl text-left">
+                
+                <h2 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 border-b border-blue-600/50 pb-2 mb-6 text-center">
+                    Connect with FutureNet
+                </h2>
+                
+                <p class="text-gray-300 mb-6 text-center">
+                    Send us your questions, feedback, or collaboration proposals. We'll get back to you as soon as our AI matrix allows!
+                </p>
+
+                <form id="contact-form" onsubmit="submitForm(event)">
+                    <div class="mb-4">
+                        <label for="name" class="block text-blue-400 text-sm font-medium mb-1">Your Name</label>
+                        <input type="text" id="name" name="name" required class="futuristic-input w-full p-3 rounded-lg">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-blue-400 text-sm font-medium mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" required class="futuristic-input w-full p-3 rounded-lg">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phone" class="block text-blue-400 text-sm font-medium mb-1">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone" class="futuristic-input w-full p-3 rounded-lg">
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="comment" class="block text-blue-400 text-sm font-medium mb-1">Your Comment or Inquiry</label>
+                        <textarea id="comment" name="comment" rows="4" required class="futuristic-input w-full p-3 rounded-lg"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-lg text-lg glow-button">
+                        SEND MESSAGE
+                    </button>
+                    
+                    <div id="submission-message" class="mt-4 hidden text-center p-3 rounded-lg bg-green-900/50 text-green-300 border border-green-600">
+                        Message sent successfully! Thank you for connecting with us.
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- 5. Footer (Footnote) -->
+        <footer id="footer-contact" class="bg-gray-900 bg-opacity-70 backdrop-blur-sm mt-auto p-4 text-center z-10">
+            <div class="max-w-7xl mx-auto">
+                <p class="text-xs text-gray-400 mb-2">
+                    &copy; 2025 Digital Literacy Initiative. All rights reserved. | Contact us: info@digitalliteracyhub.org
+                </p>
+                <p class="text-xs text-blue-500">
+                    A project dedicated to empowering young minds in the new technological age.
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        /**
+         * Switches the visible content view in the Single Page Application structure.
+         * @param {string} viewId - The ID of the view to display (e.g., 'home-view', 'explore-view', 'contact-view').
+         */
+        function showView(viewId) {
+            const views = document.querySelectorAll('.content-section > div');
+            views.forEach(view => {
+                if (view.id === viewId) {
+                    view.classList.remove('hidden-section');
+                } else {
+                    view.classList.add('hidden-section');
+                }
+            });
+            // Scroll to the top of the content area for a clean view transition
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        /**
+         * Simulates form submission and displays a success message.
+         * @param {Event} event - The form submission event.
+         */
+        function submitForm(event) {
+            event.preventDefault(); // Stop the form from performing a real submission
+            
+            const form = document.getElementById('contact-form');
+            const messageDiv = document.getElementById('submission-message');
+            
+            // 1. Hide the message first
+            messageDiv.classList.add('hidden');
+            
+            // 2. Simulate processing (a brief delay)
+            setTimeout(() => {
+                // 3. Show success message
+                messageDiv.classList.remove('hidden');
+                
+                // 4. Reset the form fields
+                form.reset();
+                
+                // 5. Hide the success message after 5 seconds
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                }, 5000);
+                
+            }, 500);
+        }
+        
+        // Ensure the home view is visible on load, and fix navigation links to use showView
+        window.onload = () => {
+             showView('home-view');
+        };
+    </script>
+
+</body>
+</html>
